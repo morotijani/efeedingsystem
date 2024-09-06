@@ -26,12 +26,6 @@ if (isset($_SESSION['userId'])) {
     }
 }
 
-// Redirect admin if do not have permission
-// function admin_permission_redirect($url = 'login') {
-//   $_SESSION['flash_error'] = '<div class="text-center" id="temporary" style="margin-top: 60px;">You do not have permission in to access that page.</div>';
-//   header('Location: '.$url);
-// }
-
 function admin_has_permission($permission = 'admin') {
     global $admin_data;
     $permissions = explode(',', $admin_data['permission']);

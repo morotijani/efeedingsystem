@@ -47,20 +47,42 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <label class="col-sm-3 control-label">Mobile No
-</label>
+                                                <label class="col-sm-3 control-label">Mobile No</label>
                                                 <div class="col-sm-9">
-                        <input type="text" class="form-control" id="" placeholder="" name="mob_no" autocomplete="off" required="" />
+                                                    <input type="text" class="form-control" id="" placeholder="" name="mob_no" autocomplete="off" required="" />
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="form-group">
                                             <div class="row">
-                                                <label class="col-sm-3 control-label">School Category
-</label>
+                                                <label class="col-sm-3 control-label">School Population
+                                                </label>
                                                 <div class="col-sm-9">
-                        <input type="text" class="form-control" id="" placeholder="" name="Female" autocomplete="off" required="" />
+                                                    <input type="number" min="0" class="form-control" id="school_population" placeholder="" name="school_population" required="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Type</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_type" id="school_type">
+                                                        <option value="">..</option>
+                                                        <option value="boarding">Boarding</option>
+                                                        <option value="day">Day</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Gender</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_gender" id="school_gender">
+                                                        <option value="">..</option>
+                                                        <option value="single">Single sex</option>
+                                                        <option value="mix">Mix sex</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
