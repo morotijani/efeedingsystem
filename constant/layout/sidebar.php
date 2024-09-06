@@ -1,11 +1,4 @@
- <?php 
- include('./constant/connect.php');
-  
-
- ?>
-
- 
-        <div class="left-sidebar">
+ <div class="left-sidebar">
             
             <div class="scroll-sidebar">
                 

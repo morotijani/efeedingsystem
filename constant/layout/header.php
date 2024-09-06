@@ -1,13 +1,4 @@
-<?php 
-//session_start();
-//include('../constant/check.php');?>
-<?php 
-//session_start();
-include('./constant/check.php');
- include('./constant/connect.php');
-?>
-    
-    <div id="main-wrapper">
+<div id="main-wrapper">
         
         <div class="header">
             <marquee class="d-lg-none d-block">

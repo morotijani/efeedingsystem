@@ -1,34 +1,35 @@
 <?php 
 ini_set('display_errors', '1');
 error_reporting(E_ALL); ?>
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
 
-<?php include('./constant/layout/sidebar.php');?>   
+
 <?php 
+    require ('./constant/check.php');
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
 
-$Customersql = "SELECT * FROM tbl_client WHERE delete_status = 0";
-$query = $connect->query($Customersql);
-$countCustomer = $query->num_rows;
+    $Customersql = "SELECT * FROM tbl_client WHERE delete_status = 0";
+    $query = $connect->query($Customersql);
+    $countCustomer = $query->num_rows;
 
-$sql = "SELECT * FROM product WHERE status = 1";
-$query = $connect->query($sql);
-$countProduct = $query->num_rows;
+    $sql = "SELECT * FROM product WHERE status = 1";
+    $query = $connect->query($sql);
+    $countProduct = $query->num_rows;
 
-$orderSql = "SELECT * FROM orders WHERE order_status = 1";
-$orderQuery = $connect->query($orderSql);
-$countOrder = $orderQuery->num_rows;
+    $orderSql = "SELECT * FROM orders WHERE order_status = 1";
+    $orderQuery = $connect->query($orderSql);
+    $countOrder = $orderQuery->num_rows;
 
 
-$lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
-$lowStockQuery = $connect->query($lowStockSql);
-$countLowStock = $lowStockQuery->num_rows;
+    $lowStockSql = "SELECT * FROM product WHERE quantity <= 3 AND status = 1";
+    $lowStockQuery = $connect->query($lowStockSql);
+    $countLowStock = $lowStockQuery->num_rows;
 
-$userwisesql = "SELECT tbl_client.name,order_id FROM orders INNER JOIN tbl_client ON orders.client_name = tbl_client.id WHERE orders.order_status = 1 GROUP BY orders.client_name";
-$userwiseQuery = $connect->query($userwisesql);
-$userwieseOrder = $userwiseQuery->num_rows;
+    $userwisesql = "SELECT tbl_client.name,order_id FROM orders INNER JOIN tbl_client ON orders.client_name = tbl_client.id WHERE orders.order_status = 1 GROUP BY orders.client_name";
+    $userwiseQuery = $connect->query($userwisesql);
+    $userwieseOrder = $userwiseQuery->num_rows;
 
-$connect->close();
 
 ?>
   
@@ -126,7 +127,7 @@ $connect->close();
 
     </div>
 
- <?php include('./constant/connect.php');
+ <?php 
  $user=$_SESSION['userId'];
 $sql = "SELECT order_id, order_date, client_name, client_contact, tbl_client.name 
 FROM orders INNER JOIN tbl_client 

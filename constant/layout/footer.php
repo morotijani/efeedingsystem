@@ -1,11 +1,4 @@
-
-             <?php
-             include('./constant/connect.php');
-            
-             ?>
-             
-          
-        </div>
+</div>
           
     </div>
 
