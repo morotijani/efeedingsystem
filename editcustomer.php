@@ -1,13 +1,14 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php 
 
-<?php include('./constant/layout/sidebar.php');?> 
-<?php include('./constant/connect.php');
+    require ('./constant/check.php');
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
 
 
 
-  $sql="SELECT * from tbl_client where  id='".$_GET['id']."'";
-  $result=$connect->query($sql)->fetch_assoc();
+      $sql = "SELECT * from tbl_client where  id='".$_GET['id']."'";
+      $result = $connect->query($sql)->fetch_assoc();
 
 
 
@@ -55,10 +56,42 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <label class="col-sm-3 control-label">Mobile No
-</label>
+                                                <label class="col-sm-3 control-label">Mobile No</label>
                                                 <div class="col-sm-9">
-                        <input type="text" class="form-control" id="" placeholder="" name="mob_no" autocomplete="off" required="" value="<?php  echo $result['mob_no'];?>" />
+                                                    <input type="text" class="form-control" id="" placeholder="" name="mob_no" autocomplete="off" required="" value="<?php  echo $result['mob_no'];?>" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Population
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" min="0" class="form-control" id="school_population" placeholder="" name="school_population" required="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Type</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_type" id="school_type">
+                                                        <option value="">..</option>
+                                                        <option <?= (($result['school_bd'] == 'boarding') ? 'selected' : ''); ?> value="boarding">Boarding</option>
+                                                        <option <?= (($result['school_bd'] == 'day') ? 'selected' : ''); ?> value="day">Day</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Gender</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_gender" id="school_gender">
+                                                        <option value="">..</option>
+                                                        <option <?= (($result['school_gender'] == 'single') ? 'selected' : ''); ?> value="single">Single sex</option>
+                                                        <option <?= (($result['school_gender'] == 'mix') ? 'selected' : ''); ?> value="mix">Mix sex</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

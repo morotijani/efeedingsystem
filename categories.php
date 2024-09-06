@@ -1,11 +1,16 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?>   
-<?php include('./constant/connect');
-$sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1";
-$result = $connect->query($sql);
-//echo $sql;exit;
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
+
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
+
+    $sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1";
+    $result = $connect->query($sql);
 
 ?>
        <div class="page-wrapper">
@@ -23,10 +28,7 @@ $result = $connect->query($sql);
             
             
             <div class="container-fluid">
-                
-                
-                
-                
+            
                  <div class="card">
                             <div class="card-body">
                               

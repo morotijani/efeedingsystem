@@ -86,17 +86,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                     <div class="form-group">
+                                        <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Address</label>
                                                 <div class="col-sm-9">
-                                                                                                    <textarea type="text" class="form-control" id="" placeholder="" name="address" autocomplete="off" required="" style="height: 150px;"></textarea>
-
+                                                    <textarea type="text" class="form-control" id="" placeholder="" name="address" autocomplete="off" required="" style="height: 150px;"></textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                  
-                                  
                                         <button type="submit" name="create" id="createProductBtn" class="btn btn-primary btn-flat m-b-30 m-t-30">Submit</button>
                                     </form>
                                 </div>

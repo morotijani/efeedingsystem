@@ -1,11 +1,13 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php 
 
-<?php include('./constant/layout/sidebar.php');?>   
-<?php include('./constant/connect');
-$sql = "SELECT * FROM tbl_client WHERE delete_status = 0";
-$result = $connect->query($sql);
-//echo $sql;exit;
+    require ('./constant/check.php');
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
+
+    $sql = "SELECT * FROM tbl_client WHERE delete_status = 0";
+    $result = $connect->query($sql);
+    //echo $sql;exit;
 
 ?>
        <div class="page-wrapper">
@@ -39,21 +41,26 @@ $result = $connect->query($sql);
                                               <th>#</th>
                                                 <th>School Name</th>
                                                 <th>Mobile NO</th>
-                                                <th>Schoool Category</th>
+                                                <th>Category</th>
+                                                <th>Population</th>
+                                                <th>Gender</th>
                                                 <th>Address</th>
-                                                <th>Edit</th>
+                                                <th>Action</th>
                                                
                                             </tr>
                                        </thead>
                                        <tbody>
                                         <?php
-foreach ($result as $row) {
-    $no+=1;
-    ?>
+                                            foreach ($result as $row) {
+                                                $no+=1;
+                                            ?>
                                         <tr>
-                                            <td><?php echo$no; ?></td>
+                                            <td><?php echo $no; ?></td>
                                             <td><?php echo $row['name'] ?></td>
-                                              <td><?php echo $row['mob_no'] ?></td>
+                                            <td><?php echo $row['mob_no'] ?></td>
+                                            <td><?php echo strtoupper($row['school_bd']); ?></td>
+                                            <td><?php echo $row['school_population'] ?></td>
+                                            <td><?php echo strtoupper($row['school_gender']); ?></td>
                                             <td><?php echo $row['address'] ?></td>
                                           
                                             <td>
