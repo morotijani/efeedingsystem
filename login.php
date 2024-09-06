@@ -22,25 +22,25 @@ $errors = array();
 
 if($_POST) {    
 
-  $username = $_POST['username'];
+  $email = $_POST['email'];
   $password = $_POST['password'];
 
-  if(empty($username) || empty($password)) {
-    if($username == "") {
-      $errors[] = "Username is required";
+  if(empty($email) || empty($password)) {
+    if($email == "") {
+      $errors[] = "Email is required";
     } 
 
     if($password == "") {
       $errors[] = "Password is required";
     }
   } else {
-    $sql = "SELECT * FROM users WHERE username = '$username'";
+    $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $connect->query($sql);
 
     if($result->num_rows == 1) {
       $password = md5($password);
       // exists
-      $mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+      $mainSql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
       $mainResult = $connect->query($mainSql);
 
       if($mainResult->num_rows == 1) {
@@ -76,7 +76,7 @@ if($_POST) {
     <h3 class="popup__content__title">
       Error 
     </h1>
-    <p>Incorrect username/password combination</p>
+    <p>Incorrect email/password combination</p>
     <p>
       <a href="login.php"><button class="button button--error" data-for="js_error-popup">Close</button></a>
     </p>
@@ -91,7 +91,7 @@ if($_POST) {
     <h3 class="popup__content__title">
       Error 
     </h1>
-    <p>Username doesnot exists</p>
+    <p>Email does not exists</p>
     <p>
       <a href="login.php"><button class="button button--error" data-for="js_error-popup">Close</button></a>
     </p>
@@ -121,7 +121,7 @@ if($_POST) {
                                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="loginForm">
                                     <div class="form-group">
                                        
-                                        <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="">
+                                        <input type="text" name="email" id="email" class="form-control" placeholder="Email" required="">
      
                                     </div>
                                     <div class="form-group">

@@ -37,6 +37,7 @@ $result = $connect->query($sql);
                                             <tr>
                                               <th>#</th>
                                                 <th>User Name</th>
+                                                <th>Email</th>
                                                 <th>Permission</th>
                                                 <th>Action</th>
                                             </tr>
@@ -48,11 +49,10 @@ $result = $connect->query($sql);
                                         <tr>
                                             <td><?php echo $row['user_id'] ?></td>
                                             <td><?php echo $row['username'] ?></td>
+                                            <td><?php echo $row['email'] ?></td>
+                                            <td><?php echo strtoupper($row['permission']); ?></td>
                                             <td>
                                                 <a href="edituser.php?id=<?php echo $row['user_id']?>"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-pencil"></i></button></a>
-                                              
-
-             
                                                 <a href="php_action/removeUser.php?id=<?php echo $row['user_id']?>" ><button type="button" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash"></i></button></a>
                                            
                                                 

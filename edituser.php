@@ -43,7 +43,15 @@
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Username</label>
                                                 <div class="col-sm-9">
-                                                  <input type="text" name="edituserName" id="edituserName" class="form-control" placeholder="Username" required="" pattern="^[a-zA-z0-9]+$"/ value="<?php echo $result['username']?>">
+                                                  <input type="text" name="edituserName" id="edituserName" class="form-control" placeholder="Username" required="" pattern="^[a-zA-z0-9 ]+$"/ value="<?php echo $result['username']?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                       <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">Email</label>
+                                                <div class="col-sm-9">
+                                                 <input type="email" class="form-control" id="editEmail" placeholder="Email" name="editEmail" value="<?php echo $result['email']; ?>">
                                                 </div>
                                             </div>
                                         </div>

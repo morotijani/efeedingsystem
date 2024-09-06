@@ -8,9 +8,10 @@ $userid = $_GET['id'];
 if($_POST) {
 	$edituserName = $_POST['edituserName'];
 	$editPassword 		= md5($_POST['editPassword']);
+	$email = $_POST['editEmail'];
 	$permission = $_POST['permission'];
 	
-	$sql = "UPDATE users SET username = '$edituserName', password = '$editPassword', permission = '$permission' WHERE user_id = $userid ";
+	$sql = "UPDATE users SET username = '$edituserName', email = '$email', password = '$editPassword', permission = '$permission' WHERE user_id = $userid ";
 
 	if($connect->query($sql) === TRUE) {
 		$valid['success'] = true;
