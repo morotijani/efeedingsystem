@@ -1,23 +1,29 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php 
 
-<?php include('./constant/layout/sidebar.php');?>   
-<link rel="stylesheet" href="custom/js/order.js">
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<?php include('./constant/connect.php');
+    require ('./constant/check.php');
 
- 
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
 
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
+    ?>   
+    
+    <link rel="stylesheet" href="custom/js/order.js">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> 
 
+<?php
 
-if($_GET['o'] == 'add') { 
-// add order
-  echo "<div class='div-request div-hide'>add</div>";
-} else if($_GET['o'] == 'manord') { 
-  echo "<div class='div-request div-hide'>manord</div>";
-} else if($_GET['o'] == 'editOrd') { 
-  echo "<div class='div-request div-hide'>editOrd</div>";
-} // /else manage order
+    if($_GET['o'] == 'add') { 
+        // add order
+      echo "<div class='div-request div-hide'>add</div>";
+    } else if($_GET['o'] == 'manord') { 
+      echo "<div class='div-request div-hide'>manord</div>";
+    } else if($_GET['o'] == 'editOrd') { 
+      echo "<div class='div-request div-hide'>editOrd</div>";
+    } // /else manage order
 
 
 ?>
@@ -75,7 +81,6 @@ if($_GET['o'] == 'add') {
                                               <label class="col-sm-2 control-label">Invoice No</label>
                                                <div class="col-sm-4">
                                                 <?php 
-                                                include('./constant/connect.php');
                                                 $sql = "select count(*) as cnt from orders";
                                                 $row = $connect->query($sql)->fetch_assoc();
                                                 

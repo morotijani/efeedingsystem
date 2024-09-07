@@ -16,7 +16,7 @@ if($_POST) {
   // $rate 			= $_POST['rate'];
   // $brandName 		= $_POST['brandName'];
   $categoryName 	= $_POST['categoryName'];
-  $productStatus 	= $_POST['productStatus'];
+  //$productStatus 	= $_POST['productStatus'];
 	//$type = explode('.', $_FILES['productImage']['name']);
 	/*$image = $_FILES['productImage']['name'];
 $target = "../assets/myimages/".basename($image);
@@ -32,8 +32,8 @@ if (move_uploaded_file($_FILES['productImage']['tmp_name'], $target)) {
       echo $msg;exit;
     }*/
 	
-				$sql = "INSERT INTO product (product_name, brand_id, categories_id, quantity, active, status) 
-				VALUES ('$productName','0', '$categoryName', '$quantity', '$productStatus', 1)";
+				$sql = "INSERT INTO product (product_name, brand_id, categories_id, quantity, status) 
+				VALUES ('$productName','0', '$categoryName', '$quantity', 1)";
 
 				if($connect->query($sql) === TRUE) {
 					$valid['success'] = true;

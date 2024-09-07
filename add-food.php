@@ -1,7 +1,14 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?>  
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
+
+?>  
 
  
         <div class="page-wrapper">
@@ -24,7 +31,7 @@
                 
                 
                 <div class="row">
-                    <div class="col-lg-8" style="    margin-left: 10%;">
+                    <div class="col-lg-8" style="margin-left: 10%;">
                         <div class="card">
                             <div class="card-title">
                                
@@ -92,7 +99,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Status</label>
                                                 <div class="col-sm-9">
@@ -103,7 +110,7 @@
                       </select>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
 
                                         <button type="submit" name="create" id="createProductBtn" class="btn btn-primary btn-flat m-b-30 m-t-30">Submit</button>

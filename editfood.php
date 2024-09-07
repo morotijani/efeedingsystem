@@ -1,17 +1,18 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php 
 
-<?php include('./constant/layout/sidebar.php');?>   
+    require ('./constant/check.php');
 
-<?php include('./constant/connect.php');
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
 
-$sql="SELECT * from product where  product_id='".$_GET['id']."'";
-  $result=$connect->query($sql)->fetch_assoc();  
-  ?> 
-
-
-  
-
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
+    
+    $sql="SELECT * from product where  product_id='".$_GET['id']."'";
+    $result=$connect->query($sql)->fetch_assoc();  
+?> 
  
         <div class="page-wrapper">
             
@@ -70,35 +71,17 @@ $sql="SELECT * from product where  product_id='".$_GET['id']."'";
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Category Name</label>
                                                 <div class="col-sm-9">
-                                                     <select  id="editCategoryName" name="editCategoryName"  required class="form-control">
-<?php
-     $sql = ("SELECT * FROM categories  where categories_status=1 ");
-     //echo $sql;exit;
-     $result1 = mysqli_query($connect, $sql);
-     //echo "23";exit;
- while ($row = mysqli_fetch_assoc($result1)){
-  //echo $row['categories_name'];exit;?>
-     <option value="<?php echo $row['categories_id']; ?>"<?php if($result['categories_id']==$row['categories_id']){echo "selected";}?>><?php echo $row['categories_name']; ?></option>";
- <?php   }                    
-?></select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <label class="col-sm-3 control-label">Status</label>
-                                                <div class="col-sm-9">
-                                                     <select class="form-control" id="editProductStatus" name="editProductStatus">
-                        <option value="1" <?php 
-                                                        if($result['active']=="1") 
-                                                            { 
-                                                                echo "selected";
-                                                            }
-                                                        ?>>Available</option>
-                                                        <option value="2" <?php if($result['active']=="2"){ echo "selected";}?>>Not Available</option>
-                      </select>
+                                                    <select  id="editCategoryName" name="editCategoryName"  required class="form-control">
+                                                        <?php
+                                                             $sql = ("SELECT * FROM categories  where categories_status=1 ");
+                                                             //echo $sql;exit;
+                                                             $result1 = mysqli_query($connect, $sql);
+                                                             //echo "23";exit;
+                                                         while ($row = mysqli_fetch_assoc($result1)){
+                                                          //echo $row['categories_name'];exit;?>
+                                                             <option value="<?php echo $row['categories_id']; ?>"<?php if($result['categories_id']==$row['categories_id']){echo "selected";}?>><?php echo $row['categories_name']; ?></option>";
+                                                         <?php   }                    
+                                                        ?></select>
 
                                                 </div>
                                             </div>

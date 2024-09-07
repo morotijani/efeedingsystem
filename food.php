@@ -1,11 +1,16 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php 
 
-<?php include('./constant/layout/sidebar.php');?>   
-<?php include('./constant/connect');
-$sql = "SELECT product_id, product_name,rate,quantity,brand_id,categories_id,active,status FROM product WHERE status = 1";
-$result = $connect->query($sql);
-//echo $sql;exit;
+    require ('./constant/check.php');
+
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
+
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');  
+    $sql = "SELECT product_id, product_name,rate,quantity,brand_id,categories_id,active,status FROM product WHERE status = 1";
+    $result = $connect->query($sql);
 
 ?>
        <div class="page-wrapper">
@@ -21,12 +26,7 @@ $result = $connect->query($sql);
                 </div>
             </div>
             
-            
-            <div class="container-fluid">
-                
-                
-                
-                
+            <div class="container-fluid">        
                  <div class="card">
                             <div class="card-body">
                               
@@ -68,31 +68,27 @@ foreach ($result as $row) {
                                             <td><?php echo $row['product_name'] ?></td>                                             
                                              <td><?php echo $row2['categories_name'] ?></td>
                                              <td><?php echo $row['quantity'] ?></td>
-                                            <td><?php  if($row['active']==1)
-                                            {
-                                                 
-                                                 $activeBrands = "<label class='label label-success' ><h4>Available</h4></label>";
-                                                 echo $activeBrands;
-                                            }
-                                            else{
-                                                $activeBrands = "<label class='label label-danger'><h4>Not Available</h4></label>";
-                                                echo $activeBrands;
-                                            }?></td>
                                             <td>
-            
+                                                <?php  
+                                                    if ($row['quantity'] >= 0) {
+                                                 
+                                                    $activeBrands = "<label class='label label-success' ><h4>Available</h4></label>";
+                                                    echo $activeBrands;
+                                                } else{
+                                                    $activeBrands = "<label class='label label-danger'><h4>Not Available</h4></label>";
+                                                    echo $activeBrands;
+                                                }
+                                            ?>
+                                            </td>
+                                            <td>
                                                 <a href="editfood.php?id=<?php echo $row['product_id']?>"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-pencil"></i></button></a>
-                                              
-
-             
                                                 <a href="php_action/removeproduct.php?id=<?php echo $row['product_id']?>" ><button type="button" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash"></i></button></a>
-                                           
-                                                
-                                                </td>
+                                            </td>
                                         </tr>
-                                                                         <?php 
-                                                                         $i++;   
-}
-?>
+                                        <?php 
+                                                $i++;
+                                            }
+                                        ?>
                                     </tbody>
 
                                </table>

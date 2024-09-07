@@ -10,10 +10,9 @@ if($_POST) {
   $quantity 			= $_POST['editQuantity'];
 //  $brandName 			= $_POST['editBrandName'];
   $categoryName 	= $_POST['editCategoryName'];
-  $productStatus 	= $_POST['editProductStatus'];
 
 				
-	$sql = "UPDATE product SET product_name = '$productName',categories_id = '$categoryName', quantity = '$quantity', active = '$productStatus', status = 1 WHERE product_id = $productId ";
+	$sql = "UPDATE product SET product_name = '$productName',categories_id = '$categoryName', quantity = '$quantity', status = 1 WHERE product_id = $productId ";
 
 	if($connect->query($sql) === TRUE) {
 		$valid['success'] = true;
