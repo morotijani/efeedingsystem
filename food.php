@@ -70,7 +70,7 @@ foreach ($result as $row) {
                                              <td><?php echo $row['quantity'] ?></td>
                                             <td>
                                                 <?php  
-                                                    if ($row['quantity'] >= 0) {
+                                                    if ($row['quantity'] > 0) {
                                                  
                                                     $activeBrands = "<label class='label label-success' ><h4>Available</h4></label>";
                                                     echo $activeBrands;

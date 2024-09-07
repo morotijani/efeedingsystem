@@ -1,7 +1,13 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?>   
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
+?>   
  
         <div class="page-wrapper">
             
@@ -34,11 +40,11 @@
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Food Categories Name</label>
                                                 <div class="col-sm-9">
-                                                  <input type="text"  class="form-control"id="categoriesName" placeholder="Categories Name" name="categoriesName"  required="" pattern="^[a-zA-z]+$"/>
+                                                  <input type="text"  class="form-control"id="categoriesName" placeholder="Categories Name" name="categoriesName"  required="" pattern="^[a-zA-z ]+$"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Status</label>
                                                 <div class="col-sm-9">
@@ -49,7 +55,7 @@
                       </select>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
 
                                         <button type="submit" name="create" id="createCategoriesBtn" class="btn btn-primary btn-flat m-b-30 m-t-30">Submit</button>

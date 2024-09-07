@@ -7,10 +7,9 @@ $categoriesId = $_GET['id'];
 if($_POST) {	
 
 	$brandName = $_POST['categoriesName'];
-  $brandStatus = $_POST['categoriesStatus']; 
   //$categoriesId = $_POST['editCategoriesId'];
 
-	$sql = "UPDATE categories SET categories_name = '$brandName', categories_active = '$brandStatus' WHERE categories_id = '$categoriesId'";
+	$sql = "UPDATE categories SET categories_name = '$brandName' WHERE categories_id = '$categoriesId'";
 
 	if($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;

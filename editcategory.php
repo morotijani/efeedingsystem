@@ -1,12 +1,17 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?>
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
 
-<?php include('./constant/connect.php');
 
-$sql="SELECT * from categories where  categories_id='".$_GET['id']."'";
-  $result=$connect->query($sql)->fetch_assoc();  ?>    
+    $sql = "SELECT * from categories where  categories_id = '".$_GET['id']."'";
+    $result = $connect->query($sql)->fetch_assoc();
+?>    
  
         <div class="page-wrapper">
             
@@ -44,23 +49,6 @@ $sql="SELECT * from categories where  categories_id='".$_GET['id']."'";
                                                 <label class="col-sm-3 control-label">Categories Name</label>
                                                 <div class="col-sm-9">
                                                   <input type="text"  class="form-control"id="categoriesName" placeholder="Test Categories Name" name="categoriesName"  value="<?php echo $result['categories_name']?>"required="" pattern="^[a-zA-z]+$"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <label class="col-sm-3 control-label">Status</label>
-                                                <div class="col-sm-9">
-                                                     <select class="form-control" id="categoriesStatus" name="categoriesStatus">
-                        <option value="1" <?php 
-                                                        if($result['categories_active']=="1") 
-                                                            { 
-                                                                echo "selected";
-                                                            }
-                                                        ?>>Available</option>
-                                                        <option value="2" <?php if($result['categories_active']=="2"){ echo "selected";}?>>Not Available</option>
-                      </select>
-
                                                 </div>
                                             </div>
                                         </div>

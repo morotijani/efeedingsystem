@@ -40,7 +40,6 @@
                                             <tr>
                                               <th>#</th>
                                                 <th>Categories Name</th>
-                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                        </thead>
@@ -51,13 +50,6 @@ foreach ($result as $row) {
                                         <tr>
                                             <td><?php echo $row['categories_id'] ?></td>
                                             <td><?php echo $row['categories_name'] ?></td>
-                                            <td><?php  if($row['categories_active']==1)
-                                            {
-                                                echo"Available";
-                                            }
-                                            else{
-                                                echo"Not Available";
-                                            }?></td>
                                             <td>
             
                                                 <a href="editcategory.php?id=<?php echo $row['categories_id']?>"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-pencil"></i></button></a>

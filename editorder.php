@@ -1,14 +1,16 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php 
 
-<?php include('./constant/layout/sidebar.php');?>   
+    require ('./constant/check.php');
+
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
+  include('./constant/layout/head.php');
+  include('./constant/layout/header.php');
+  include('./constant/layout/sidebar.php');?>   
 <link rel="stylesheet" href="custom/js/order.js">
 
 <?php 
-include('./constant/connect.php');
-
-
-
 if($_GET['o'] == 'add') { 
 // add order
   echo "<div class='div-request div-hide'>add</div>";
