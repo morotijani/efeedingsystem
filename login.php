@@ -48,7 +48,8 @@ if($_POST) {
         $user_id = $value['user_id'];
 
         // set session
-        $_SESSION['userId'] = $user_id;?>
+        $_SESSION['userId'] = $user_id;
+        ?>
 
       
 

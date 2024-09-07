@@ -1,10 +1,13 @@
 <?php 
-ini_set('display_errors', '1');
-error_reporting(E_ALL); ?>
+    ini_set('display_errors', '1');
+    error_reporting(E_ALL);
 
-
-<?php 
     require ('./constant/check.php');
+
+    // if (!admin_has_permission('national') || !admin_has_permission('storekeeper')) {
+    //     header('Location: dashboard.php');
+    // }
+
     include('./constant/layout/head.php');
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
@@ -13,7 +16,7 @@ error_reporting(E_ALL); ?>
     $query = $connect->query($Customersql);
     $countCustomer = $query->num_rows;
 
-    $sql = "SELECT * FROM product WHERE status = 1";
+    $sql = "SELECT * FROM product WHERE status = 1 AND quantity > 0";
     $query = $connect->query($sql);
     $countProduct = $query->num_rows;
 
@@ -41,32 +44,29 @@ error_reporting(E_ALL); ?>
         
         <div class="page-wrapper">
             
-     
-            
-            
             <div class="container-fluid">
-                
-                
-        
-
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-12">
                         <div class="row">
-                    <div class="col-md-6 dashboard">
-                        <div class="card " style="background: #2BC155 ">
-                            <div class="media widget-ten">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="ti-user f-s-40"></i></span>
-                                </div>
-                                <div class="media-body media-text-right">
-                                    <h2 class="color-white"><?php echo $countCustomer; ?></h2>
-                                    <a href="food.php"><p class="m-b-0">Total Schools</p></a>
+                            <?php if (admin_has_permission('admin') || admin_has_permission('district') || admin_has_permission('national')):?>
+                            <div class="col-md-6 dashboard">
+                                <div class="card " style="background: #2BC155 ">
+                                    <div class="media widget-ten">
+                                        <div class="media-left meida media-middle">
+                                            <span><i class="ti-user f-s-40"></i></span>
+                                        </div>
+                                        <div class="media-body media-text-right">
+                                            <h2 class="color-white"><?php echo $countCustomer; ?></h2>
+                                            <a href="customer.php"><p class="m-b-0">Total Schools</p></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        <?php endif; ?>
                   
                    <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+                        <?php if (admin_has_permission('admin') || admin_has_permission('storekeeper') || admin_has_permission('national') || admin_has_permission('headmaster')):?>
+
                      <div class="col-md-6 dashboard">
                         <div class="card"  style="background-color: #F94687 ">
                             <div class="media widget-ten">
@@ -81,6 +81,7 @@ error_reporting(E_ALL); ?>
                             </div>
                         </div>
                     </div>
+                        <?php endif; ?>
                 <?php }?>
                 <div class="col-md-6 dashboard">
                     <div class="card" style="background-color:#ffc107;">
@@ -112,7 +113,7 @@ error_reporting(E_ALL); ?>
                  
 
                  
-                    <p style="color:white;">Total Food Intake</p>
+                    <a href="food.php"><p style="color:white;">Total Foods</p></a>
                      </div>
                   </div>
                 </div> 
@@ -120,12 +121,12 @@ error_reporting(E_ALL); ?>
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <!-- <div class="col-md-5"> -->
         <!-- <div id="piechart" style="width:100%; max-width:600px; height:400px;">
                     </div> -->
-                        <div id="donutchart" style="width:100%; max-width:600px; height:400px;"></div>
+                        <!-- <div id="donutchart" style="width:100%; max-width:600px; height:400px;"></div> -->
 
-    </div>
+    <!-- </div> -->
 
  <?php 
  $user=$_SESSION['userId'];
@@ -139,7 +140,7 @@ $result = $connect->query($sql);
     //echo $itemCountRow;exit; 
 ?>
 
-    <//?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+    <?php  if ((admin_has_permission('admin') || admin_has_permission('storekeeper') || admin_has_permission('national') || admin_has_permission('headmaster'))): ?>
      <div class="col-md-12">
 <div class="card">
                             <div class="card-header">
@@ -178,7 +179,7 @@ foreach ($result as $row) {
                         </div>
                     </div>
                 </div>
-            <//?php }?>
+            <?php endif; ?>
 </div> 
 
                 
