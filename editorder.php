@@ -153,7 +153,7 @@ if($_GET['o'] == 'add') {
                   <select class="form-control" name="productName[]" id="productName<?php echo $x; ?>" onchange="getProductData(<?php echo $x; ?>)" >
                     <option value="">~~SELECT~~</option>
                     <?php
-                      $productSql = "SELECT * FROM product WHERE active = 1 AND status = 1 AND quantity != 0";
+                      $productSql = "SELECT * FROM product WHERE status = 1 AND quantity != 0";
                       $productData = $connect->query($productSql);
 
                       while($row = $productData->fetch_array()) {                     
@@ -164,7 +164,7 @@ if($_GET['o'] == 'add') {
                           $selected = "";
                         }
 
-                        echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name']."</option>";
+                        echo "<option value='".$row['product_id']."' id='changeProduct".$row['product_id']."' ".$selected." >".$row['product_name'] . " ~ " . $row["quantity"] . " left</option>";
                       } // /while 
 
                     ?>
@@ -208,51 +208,6 @@ if($_GET['o'] == 'add') {
           </div>
         </div>
       </form>
-
-    <form action="php_action/editFile.php?id=<?php echo $_GET['id'];?>" method="POST" id="updateProductImageForm" class="form-horizontal" enctype="multipart/form-data">
-      <?php 
-      $sql="SELECT * from orders where order_id='".$_GET['id']."'";
-  $result=$connect->query($sql)->fetch_assoc();  
-  ?> 
-
-
-                                        <fieldset>
-                        <h1>Update Photo</h1>
-<div class="changeUsenrameMessages"></div>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                
-                                                <div class="col-sm-9">
-                                                 
-                                                  <!--  <img src="assets/myimages/<?php //echo $result['file']?>" > -->
-                                                     <input type="hidden" name="old_image" value="<?php echo $result['file']?>">
-
-                         
-
-                                                   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <div class="form-group">
-                                      <div class="row">
-                <label for="editProductImage" class="col-sm-3 control-label">Edit Report: </label>
-               
-                <div class="col-sm-9">
-                  
-                  <div id="kv-avatar-errors-1" class="center-block" style="display:none;"></div>              
-                  <div class="kv-avatar center-block">                  
-                      <input type="file" pattern=".pdf,.docx" class="form-control" id="productImage" placeholder="Product Name" name="productImage" class="file-loading" style="width:auto;"/>
-                  </div>
-                  
-                </div>
-              </div> 
-            </div>                           
-
-
-                                        <button type="submit"  name="btn" id="changeUsernameBtn" class="btn btn-primary btn-flat m-b-30 m-t-30">Save Changes</button>
-                                        </fieldset>
-
-                                    </form>
 
                                 </div>
                             </div>

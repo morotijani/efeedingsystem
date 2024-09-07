@@ -1,7 +1,13 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?>   
+    if (!admin_has_permission('national') || !admin_has_permission('storekeeper')) {
+        header('Location: dashboard.php');
+    }
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
+?>   
  
         <div class="page-wrapper">
             

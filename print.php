@@ -1,7 +1,12 @@
-<?php include('./constant/layout/head.php');?>
-<?php 
-include('./constant/connect.php');?>
- 
+<?php
+    require ('./constant/check.php');
+
+    if (!admin_has_permission('national')) {
+        header('Location: dashboard.php');
+    }
+
+    include('./constant/layout/head.php');
+?>
         <div class="">
             
            
@@ -79,9 +84,8 @@ $query=$connect->query($que);
                                                 <tr>
                                                     <th class="center">#</th>
                                                     <th>Food Name</th>
-                                                    <th class="right">Rate</th>
+                                                    <th>Category</th>
                                                     <th class="center">Qty</th>
-                                                    <th class="right">Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -93,7 +97,7 @@ $query=$connect->query($que);
 
                      while($row11 = $productData11->fetch_array()){
                   
-                                                    $productSql2 = "SELECT * FROM product WHERE product_id='".$row11['product_id']."'";
+                                                    $productSql2 = "SELECT * FROM product INNER JOIN categories ON categories.categories_id = product.categories_id WHERE product_id='".$row11['product_id']."'";
                       $productData2 = $connect->query($productSql2);
 
                       $row2 = $productData2->fetch_array();
@@ -102,9 +106,8 @@ $query=$connect->query($que);
                                                 <tr>
                                                     <td class="center"><?=$no?></td>
                                                     <td class="left strong"><?=$row2['product_name']?></td>
-                                                    <td class="right"><?=$row11['rate']?></td>
+                                                    <td class="right"><?=$row2['categories_name']?></td>
                                                     <td class="center"><?=$row11['quantity']?></td>
-                                                    <td class="right"><?=$row11['total']?></td>
                                                 </tr>
                                                 <?php }  ?>
                                             </tbody>
