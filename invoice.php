@@ -10,16 +10,15 @@
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
-    $user = $_SESSION['userId'];
 
-    $where = 'INNER JOIN users ';
+    $inner = 'INNER JOIN users ';
+    $where = '';
     if (admin_has_permission('admin')) {
+        $inner = '';
         $where = '';
     } else if (admin_has_permission('storekeeper')) {
-        // code...
-        $where .= "ON users.permission = 'storekeeper' AND users.user_id = '" . $user ."'";
-    } else if (admin_has_permission('headmaster')) {
-        $where .= "ON users.permission = 'headmaster' AND users.user_id = '" . $user ."'";
+        $inner .= " ON (users.permission = 'headmaster' OR users.permission = 'storekeeper') ";
+        $where .= " AND (tbl_client.storekeeper = '" . $user_id ."' OR tbl_client.headmaster = '" . $user_id ."')";
     }
 
     $sql = "
@@ -27,11 +26,12 @@
         FROM orders 
         INNER JOIN tbl_client 
         ON orders.client_name = tbl_client.id 
-        $where 
+        $inner 
         WHERE order_status = 1
+        $where 
     ";
 
-    // var_dump($sql);die;
+    //var_dump($sql);die;
 
     // $sql = "SELECT order_id, order_date, client_name, client_contact, tbl_client.name FROM orders INNER JOIN tbl_client 
     // ON orders.client_name = tbl_client.id WHERE order_status = 1 AND user_id = '$user'";
@@ -92,11 +92,8 @@ foreach ($result as $row) {
                                                
                                             <td>
                                                 
-                                                <?php if (admin_has_permission('national') || admin_has_permission('district') || admin_has_permission('admin')): ?>
-
                                                 <a href="editorder.php?id=<?php echo $row['order_id']?>"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-pencil"></i></button></a>
                                                 <a href="php_action/removeOrder.php?id=<?php echo $row['order_id']?>" ><button type="button" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash"></i></button></a>
-                                                <?php endif; ?>
 
                                                 <a href="print.php?id=<?php echo $row['order_id']?>"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-print"></i></button></a>
 

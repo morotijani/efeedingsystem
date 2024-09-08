@@ -2,7 +2,8 @@
 
     require ('./constant/check.php');
 
-    if (!admin_has_permission('national')) {
+    // storekeeper and headmaster
+    if (!admin_has_permission('storekeeper')) {
         header('Location: dashboard.php');
     }
   include('./constant/layout/head.php');
@@ -96,13 +97,28 @@ if($_GET['o'] == 'add') {
       </div>
         <div class="form-group">
            <div class="row">
-            <label class="col-sm-3 control-label">Customer Name</label>
+            <label class="col-sm-3 control-label">School Name</label>
            <div class="col-sm-9">
              <select class="form-control" id="clientName" name="clientName">
-                        <option value="">~~SELECT~~</option>
                         <?php 
-                        $sql = "SELECT * FROM tbl_client WHERE delete_status =0";
-                                $result = $connect->query($sql);
+
+                            $where = '';
+                            $inner = 'INNER JOIN users ';
+                            if (admin_has_permission('admin')) {
+                                $where = '';
+                            } else if (admin_has_permission('storekeeper')) {
+                                $inner .= "ON (users.permission = 'storekeeper' OR users.permission = 'headmaster')";
+                                $where .= " AND (tbl_client.storekeeper = '" . $user_id ."' OR tbl_client.headmaster = '" . $user_id ."')";
+                            }
+
+                            $sql = "
+                                SELECT * FROM tbl_client 
+                                $inner 
+                                WHERE delete_status = 0 
+                                $where 
+                                GROUP BY tbl_client.id
+                            ";
+                            $result = $connect->query($sql);
 
                                 while($row = $result->fetch_array()) {?>
                                     <option value="<?php echo$row['id'];?>"<?php if($data[2] == $row['id']) {

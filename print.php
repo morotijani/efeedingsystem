@@ -1,7 +1,8 @@
 <?php
     require ('./constant/check.php');
 
-    if (!admin_has_permission('national')) {
+    // storekeeper and headmater
+    if (!admin_has_permission('storekeeper')) {
         header('Location: dashboard.php');
     }
 

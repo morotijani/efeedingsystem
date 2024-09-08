@@ -12,6 +12,16 @@
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
+    $inner = 'INNER JOIN users ';
+    $where = '';
+    if (admin_has_permission('admin')) {
+        // code...
+        $inner = '';
+    } else if (admin_has_permission('storekeeper')) {
+        $inner .= " ON (users.permission = 'storekeeper' OR users.permission = 'headmaster,storekeeper') ";
+        $where .= " AND orders.user_id = '".$user_id."'";
+    }
+
     $Customersql = "SELECT * FROM tbl_client WHERE delete_status = 0";
     $query = $connect->query($Customersql);
     $countCustomer = $query->num_rows;
@@ -20,7 +30,8 @@
     $query = $connect->query($sql);
     $countProduct = $query->num_rows;
 
-    $orderSql = "SELECT * FROM orders WHERE order_status = 1";
+    $orderSql = "SELECT * FROM orders $inner WHERE order_status = 1 $where";
+    //var_dump($orderSql);die;
     $orderQuery = $connect->query($orderSql);
     $countOrder = $orderQuery->num_rows;
 
@@ -64,8 +75,7 @@
                             </div>
                         <?php endif; ?>
                   
-                   <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
-                        <?php if (admin_has_permission('admin') || admin_has_permission('storekeeper') || admin_has_permission('national') || admin_has_permission('headmaster')):?>
+                        <?php if (admin_has_permission('storekeeper') || admin_has_permission('national')):?>
 
                      <div class="col-md-6 dashboard">
                         <div class="card"  style="background-color: #F94687 ">
@@ -82,7 +92,6 @@
                         </div>
                     </div>
                         <?php endif; ?>
-                <?php }?>
                 <div class="col-md-6 dashboard">
                     <div class="card" style="background-color:#ffc107;">
                        <div class="media widget-ten">
@@ -140,7 +149,7 @@ $result = $connect->query($sql);
     //echo $itemCountRow;exit; 
 ?>
 
-    <?php  if ((admin_has_permission('storekeeper') || admin_has_permission('national') || admin_has_permission('headmaster'))): ?>
+    <?php  if ((admin_has_permission('district') || admin_has_permission('national'))): ?>
      <div class="col-md-12">
 <div class="card">
                             <div class="card-header">

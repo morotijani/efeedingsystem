@@ -2,7 +2,8 @@
 
     require ('./constant/check.php');
 
-    if (!admin_has_permission('national') || !admin_has_permission('district') || !admin_has_permission('admin')) {
+    // storekeeper and headmaster
+    if (!admin_has_permission('storekeeper')) {
         header('Location: dashboard.php');
     }
 
@@ -102,17 +103,32 @@
                                                 <label class="col-sm-2 control-label">School</label>
                                                 <div class="col-sm-4">
                                                    <select class="form-control select2" id="clientName" name="clientName">
-                        <option value="">~~SELECT~~</option>
-                        <?php 
-                        $sql = "SELECT * FROM tbl_client WHERE delete_status =0";
-                                $result = $connect->query($sql);
+                                                        <?php 
+                                                            $where = '';
+                                                            $inner = 'INNER JOIN users ';
+                                                            if (admin_has_permission('admin')) {
+                                                                $where = '';
+                                                            } else if (admin_has_permission('storekeeper')) {
+                                                                $inner .= "ON (users.permission = 'storekeeper' OR users.permission = 'headmaster')";
+                                                                $where .= " AND (tbl_client.storekeeper = '" . $user_id ."' OR tbl_client.headmaster = '" . $user_id ."')";
+                                                            }
 
-                                while($row = $result->fetch_array()) {
-                                    echo "<option value='".$row['id']."'>".$row['name']."</option>";
-                                } // while
-                                
-                        ?>
-                      </select>
+                                                            $sql = "
+                                                                SELECT * FROM tbl_client 
+                                                                $inner 
+                                                                WHERE delete_status = 0 
+                                                                $where 
+                                                                GROUP BY tbl_client.id
+                                                            ";
+                                                            // var_dump($sql);die;
+                                                            $result = $connect->query($sql);
+
+                                                            while($row = $result->fetch_array()) {
+                                                                echo "<option value='".$row['id']."'>".$row['name']."</option>";
+                                                            } // while
+                                                                    
+                                                        ?>
+                                                      </select>
 <!--                                                  <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" autocomplete="off" />
  -->                                               </div>
 

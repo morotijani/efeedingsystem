@@ -66,9 +66,9 @@
                                                     <select class="form-control" name="permission" id="permission">
                                                         <option value=""></option>
                                                         <option value="admin,headmaster,district,national,storekeeper">Main Admin</option>
-                                                        <option value="headmaster">Head Master</option>
-                                                        <option value="district">District</option>
-                                                        <option value="national">National</option>
+                                                        <option value="headmaster,storekeeper">Head Master</option>
+                                                        <option value="district,national">District</option>
+                                                        <option value="national,district">National</option>
                                                         <option value="storekeeper">Storekeeper</option>
                                                     </select>
                                                 </div>
