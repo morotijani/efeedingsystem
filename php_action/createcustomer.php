@@ -11,8 +11,10 @@
 	    $school_type = $_POST['school_type'];
 		$school_gender = $_POST['school_gender'];
 		$school_population = $_POST['school_population'];
+		$school_h = $_POST['school_h'];
+		$school_s = $_POST['school_s'];
 	 	
-		$sql = "INSERT INTO `tbl_client`(`name`, `mob_no`, `address`, `school_bd`, `school_gender`, `school_population`) VALUES ('$name', '$mob_no', '$address', '$school_type', '$school_gender', '$school_population')";
+		$sql = "INSERT INTO `tbl_client`(`name`, `mob_no`, `address`, `school_bd`, `school_gender`, `school_population`, `headmaster`, `storekeeper`) VALUES ('$name', '$mob_no', '$address', '$school_type', '$school_gender', '$school_population', '$school_h', '$school_s')";
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;

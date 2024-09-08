@@ -132,7 +132,7 @@
  $user=$_SESSION['userId'];
 $sql = "SELECT order_id, order_date, client_name, client_contact, tbl_client.name 
 FROM orders INNER JOIN tbl_client 
-ON orders.client_name = tbl_client.id WHERE orders.order_status = 1 AND orders.user_id = '$user'";
+ON orders.client_name = tbl_client.id WHERE orders.order_status = 1";
 $result = $connect->query($sql);
 
 //echo $sql;exit;
@@ -140,7 +140,7 @@ $result = $connect->query($sql);
     //echo $itemCountRow;exit; 
 ?>
 
-    <?php  if ((admin_has_permission('admin') || admin_has_permission('storekeeper') || admin_has_permission('national') || admin_has_permission('headmaster'))): ?>
+    <?php  if ((admin_has_permission('storekeeper') || admin_has_permission('national') || admin_has_permission('headmaster'))): ?>
      <div class="col-md-12">
 <div class="card">
                             <div class="card-header">

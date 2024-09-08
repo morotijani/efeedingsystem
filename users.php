@@ -1,8 +1,12 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?>   
-<?php include('./constant/connect');
+    if (!admin_has_permission('admin')) {
+        header('Location: dashboard.php');
+    }
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+include('./constant/layout/sidebar.php');  
 $sql = "SELECT * FROM users";
 $result = $connect->query($sql);
 //echo $sql;exit;

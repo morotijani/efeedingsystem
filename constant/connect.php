@@ -31,6 +31,6 @@ function admin_has_permission($permission = 'admin') {
     $permissions = explode(',', $admin_data['permission']);
     if (in_array($permission, $permissions, true)) {
         return true;
-      }
-      return false;
+    }
+    return false;
 }

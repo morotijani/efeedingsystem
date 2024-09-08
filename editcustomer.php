@@ -10,9 +10,23 @@
 
 
 
-      $sql = "SELECT * from tbl_client where  id='".$_GET['id']."'";
-      $result = $connect->query($sql)->fetch_assoc();
 
+    $sql = "SELECT * from tbl_client where  id='".$_GET['id']."'";
+    $result = $connect->query($sql)->fetch_assoc();
+
+    $getH = "SELECT * FROM users WHERE permission = 'headmaster'";
+    $h_result = $connect->query($getH);
+    $h_output = '';
+    foreach ($h_result as $h_row) {
+        $h_output .= '<option '. (($h_row['user_id'] == $result['headmaster']) ? 'selected' : '') .' value="'.$h_row["user_id"].'">'.strtoupper($h_row["username"]).'</option>';
+    }
+
+    $getS = "SELECT * FROM users WHERE permission = 'storekeeper'";
+    $s_result = $connect->query($getS);
+    $s_output = '';
+    foreach ($s_result as $s_row) {
+        $s_output .= '<option '. (($s_row['user_id'] == $result['storekeeper']) ? 'selected' : '') .' value="'.$s_row["user_id"].'">'.strtoupper($s_row["username"]).'</option>';
+    }
 
 
     ?> 
@@ -70,7 +84,7 @@
                                                 <label class="col-sm-3 control-label">School Population
                                                 </label>
                                                 <div class="col-sm-9">
-                                                    <input type="number" min="0" class="form-control" id="school_population" placeholder="" name="school_population" required="" />
+                                                    <input type="number" min="0" class="form-control" id="school_population" placeholder="" name="school_population" value="<?php  echo $result['school_population'];?>" required="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -98,12 +112,36 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                          <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Headmaster</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_h" id="school_h" required>
+                                                        <option value="">..</option>
+                                                        <?= $h_output; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Storekeeper</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_s" id="school_s" required>
+                                                        <option value="">..</option>
+                                                        <?= $s_output; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                      <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Address</label>
                                                 <div class="col-sm-9">
-                                                                                                    <textarea type="text" class="form-control" id="" placeholder="" name="address" autocomplete="off" required="" style="height: 150px;"><?php  echo$result['address'];?></textarea>
-
+                                                    <textarea type="text" class="form-control" id="" placeholder="" name="address" autocomplete="off" required="" style="height: 150px;"><?php  echo$result['address'];?></textarea>
                                             </div>
                                         </div>
                                     </div>

@@ -11,9 +11,11 @@ $id = $_GET['id'];
       	$school_population = $_POST['school_population'];
 		$school_type = $_POST['school_type'];
 		$school_gender = $_POST['school_gender'];
+		$school_h = $_POST['school_h'];
+		$school_s = $_POST['school_s'];
 
                     
-        $sql = "UPDATE tbl_client SET name = '$name', mob_no = '$mob_no', address = '$address', school_bd = '$school_type', school_gender = '$school_gender', school_population = '$school_population' WHERE id = $id ";
+        $sql = "UPDATE tbl_client SET name = '$name', mob_no = '$mob_no', address = '$address', school_bd = '$school_type', school_gender = '$school_gender', school_population = '$school_population', headmaster = '$school_h', storekeeper = '$school_s' WHERE id = $id ";
 	  	if ($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;
 		$valid['messages'] = "Successfully Updated";
@@ -27,4 +29,4 @@ $id = $_GET['id'];
 
 	echo json_encode($valid);
  
-} // /if $_POST
+}

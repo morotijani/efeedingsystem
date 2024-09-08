@@ -1,9 +1,31 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+<?php 
+   ini_set('display_errors', '1');
+    error_reporting(E_ALL);
 
-<?php include('./constant/layout/sidebar.php');?>  
+    require ('./constant/check.php');
+    if (!admin_has_permission('national') || !admin_has_permission('district')) {
+        header('Location: dashboard.php');
+    }
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
 
- 
+    $getH = "SELECT * FROM users WHERE permission = 'headmaster'";
+    $h_result = $connect->query($getH);
+    $h_output = '';
+    foreach ($h_result as $h_row) {
+        $h_output .= '<option value="'.$h_row["user_id"].'">'.strtoupper($h_row["username"]).'</option>';
+    }
+
+    $getS = "SELECT * FROM users WHERE permission = 'storekeeper'";
+    $s_result = $connect->query($getS);
+    $s_output = '';
+    foreach ($s_result as $s_row) {
+        $s_output .= '<option value="'.$s_row["user_id"].'">'.strtoupper($s_row["username"]).'</option>';
+    }
+
+?>  
+
         <div class="page-wrapper">
             
             <div class="row page-titles">
@@ -74,6 +96,8 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">School Gender</label>
@@ -86,6 +110,32 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Headmaster</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_h" id="school_h" required>
+                                                        <option value="">..</option>
+                                                        <?= $h_output; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">School Storekeeper</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_s" id="school_s" required>
+                                                        <option value="">..</option>
+                                                        <?= $s_output; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">Address</label>
