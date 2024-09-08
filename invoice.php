@@ -1,16 +1,37 @@
 <?php
     require ('./constant/check.php');
 
-    if (!admin_has_permission('storekeeper') || !admin_has_permission('national') || !admin_has_permission('headmaster'))) {
+    // storekeeper and headmaster
+    if (!admin_has_permission('storekeeper')) {
         header('Location: dashboard.php');
     }
+
     include('./constant/layout/head.php');
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
-    $user=$_SESSION['userId'];
-    $sql = "SELECT order_id, order_date, client_name, client_contact, tbl_client.name FROM orders INNER JOIN tbl_client 
-    ON orders.client_name = tbl_client.id WHERE order_status = 1";
+    $user = $_SESSION['userId'];
+
+    $where = 'INNER JOIN users ';
+    if (admin_has_permission('admin')) {
+        $where = '';
+    } else if (admin_has_permission('storekeeper')) {
+        // code...
+        $where .= "ON users.permission = 'storekeeper' AND users.user_id = '" . $user ."'";
+    } else if (admin_has_permission('headmaster')) {
+        $where .= "ON users.permission = 'headmaster' AND users.user_id = '" . $user ."'";
+    }
+
+    $sql = "
+        SELECT order_id, order_date, client_name, client_contact, tbl_client.name 
+        FROM orders 
+        INNER JOIN tbl_client 
+        ON orders.client_name = tbl_client.id 
+        $where 
+        WHERE order_status = 1
+    ";
+
+    // var_dump($sql);die;
 
     // $sql = "SELECT order_id, order_date, client_name, client_contact, tbl_client.name FROM orders INNER JOIN tbl_client 
     // ON orders.client_name = tbl_client.id WHERE order_status = 1 AND user_id = '$user'";
