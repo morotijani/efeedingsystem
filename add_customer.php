@@ -1,5 +1,5 @@
 <?php 
-   ini_set('display_errors', '1');
+    ini_set('display_errors', '1');
     error_reporting(E_ALL);
 
     require ('./constant/check.php');
@@ -10,12 +10,20 @@
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
+    $getD = "SELECT * FROM districts";
+    $d_result = $connect->query($getD);
+    $d_output = '';
+    foreach ($d_result as $d_row) {
+        $d_output .= '<option value="'.$d_row["district_id"].'">'.strtoupper($d_row["district_name"]).'</option>';
+    }
+
     $getH = "SELECT * FROM users INNER JOIN tbl_client ON tbl_client.headmaster != users.user_id WHERE permission = 'headmaster,storekeeper'";
     $h_result = $connect->query($getH);
     $h_output = '';
     foreach ($h_result as $h_row) {
         $h_output .= '<option value="'.$h_row["user_id"].'">'.strtoupper($h_row["username"]).'</option>';
     }
+
 
     $getS = "SELECT * FROM users INNER JOIN tbl_client ON tbl_client.storekeeper != users.user_id WHERE permission = 'storekeeper'";
     $s_result = $connect->query($getS);
@@ -46,7 +54,7 @@
                 
                 
                 <div class="row">
-                    <div class="col-lg-8" style="    margin-left: 10%;">
+                    <div class="col-lg-8" style="margin-left: 10%;">
                         <div class="card">
                             <div class="card-title">
                                
@@ -55,10 +63,7 @@
                             <div class="card-body">
                                 <div class="input-states">
                                     <form class="form-horizontal" method="POST"  id="submitProductForm" action="php_action/createcustomer.php" method="POST" enctype="multipart/form-data">
-
                                    <input type="hidden" name="currnt_date" class="form-control">
-
-                                      
                                     <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label"> Name</label>
@@ -106,6 +111,18 @@
                                                         <option value="">..</option>
                                                         <option value="single">Single sex</option>
                                                         <option value="mix">Mix sex</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">District</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_district" id="school_district">
+                                                        <option value="">..</option>
+                                                        <?= $d_output; ?>
                                                     </select>
                                                 </div>
                                             </div>

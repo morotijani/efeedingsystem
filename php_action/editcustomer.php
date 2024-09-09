@@ -13,9 +13,10 @@ $id = $_GET['id'];
 		$school_gender = $_POST['school_gender'];
 		$school_h = $_POST['school_h'];
 		$school_s = $_POST['school_s'];
+		$school_district = $_POST['school_district'];
 
                     
-        $sql = "UPDATE tbl_client SET name = '$name', mob_no = '$mob_no', address = '$address', school_bd = '$school_type', school_gender = '$school_gender', school_population = '$school_population', headmaster = '$school_h', storekeeper = '$school_s' WHERE id = $id ";
+        $sql = "UPDATE tbl_client SET name = '$name', mob_no = '$mob_no', address = '$address', school_bd = '$school_type', school_gender = '$school_gender', school_population = '$school_population', headmaster = '$school_h', storekeeper = '$school_s', school_district = '$school_district' WHERE id = $id ";
 	  	if ($connect->query($sql) === TRUE) {
 	 	$valid['success'] = true;
 		$valid['messages'] = "Successfully Updated";

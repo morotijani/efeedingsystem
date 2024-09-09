@@ -8,13 +8,17 @@
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
-
-
-
     $sql = "SELECT * from tbl_client where  id='".$_GET['id']."'";
     $result = $connect->query($sql)->fetch_assoc();
 
-    $getH = "SELECT * FROM users WHERE permission = 'headmaster'";
+    $getD = "SELECT * FROM districts";
+    $d_result = $connect->query($getD);
+    $d_output = '';
+    foreach ($d_result as $d_row) {
+        $d_output .= '<option '. (($d_row['district_id'] == $result['school_district']) ? 'selected' : '') .' value="'.$d_row["district_id"].'">'.strtoupper($d_row["district_name"]).'</option>';
+    }
+
+    $getH = "SELECT * FROM users WHERE permission = 'headmaster,storekeeper'";
     $h_result = $connect->query($getH);
     $h_output = '';
     foreach ($h_result as $h_row) {
@@ -29,7 +33,7 @@
     }
 
 
-    ?> 
+?> 
  
         <div class="page-wrapper">
             
@@ -88,6 +92,20 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-sm-3 control-label">District</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" name="school_district" id="school_district">
+                                                        <option value="">..</option>
+                                                        <?= $d_output; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">School Type</label>

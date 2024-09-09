@@ -70,7 +70,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <?php if (admin_has_permission('admin') || admin_has_permission('district') || admin_has_permission('national')):?>
+                            <?php if (admin_has_permission('district') || admin_has_permission('national')): ?>
                             <div class="col-md-6 dashboard">
                                 <div class="card " style="background: #2BC155 ">
                                     <div class="media widget-ten">
@@ -163,7 +163,7 @@ $result = $connect->query($sql);
     //echo $itemCountRow;exit; 
 ?>
 
-    <?php  if ((admin_has_permission('district') || admin_has_permission('national'))): ?>
+    <?php  if (admin_has_permission('national')): ?>
      <div class="col-md-12">
 <div class="card">
                             <div class="card-header">

@@ -13,8 +13,9 @@
 		$school_population = $_POST['school_population'];
 		$school_h = $_POST['school_h'];
 		$school_s = $_POST['school_s'];
+		$school_district = $_POST['school_district'];
 	 	
-		$sql = "INSERT INTO `tbl_client`(`name`, `mob_no`, `address`, `school_bd`, `school_gender`, `school_population`, `headmaster`, `storekeeper`) VALUES ('$name', '$mob_no', '$address', '$school_type', '$school_gender', '$school_population', '$school_h', '$school_s')";
+		$sql = "INSERT INTO `tbl_client`(`name`, `mob_no`, `address`, `school_bd`, `school_gender`, `school_population`, `headmaster`, `storekeeper`, `school_district`) VALUES ('$name', '$mob_no', '$address', '$school_type', '$school_gender', '$school_population', '$school_h', '$school_s', '$school_district')";
 
 		if($connect->query($sql) === TRUE) {
 			$valid['success'] = true;
