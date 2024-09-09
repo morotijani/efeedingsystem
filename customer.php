@@ -11,7 +11,7 @@
     $where = '';
     $inner = '';
 
-    if (admin_has_permission('admin')) {
+    if (admin_has_permission('national')) {
         // code...
     } else  if (admin_has_permission('district')) {
         $inner .= " 

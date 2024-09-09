@@ -35,6 +35,8 @@ if (isset($_SESSION['userId'])) {
             $title = 'Head';
         } else if ($admin_data['permission'] == 'district') {
             $title = 'District';
+        } else if ($admin_data['permission'] == 'national,district') {
+            $title = 'National';
         }
     }
 }

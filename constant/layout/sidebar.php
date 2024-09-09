@@ -56,11 +56,11 @@
                 </li>
                  
                 <?php }?>
-                <?php if (admin_has_permission('district')) { ?>
+                <?php if ($admin_data['permission'] == 'district') { ?>
                  <li><a href="report.php" href="#" aria-expanded="false"><i class="fa fa-flag"></i><span class="hide-menu">Reports</span></a></li>
                 
-    <?php }?>
-    <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+                <?php }?>
+                <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
                 <!--  <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-cog"></i><span class="hide-menu">Setting</span></a>
                     <ul aria-expanded="false" class="collapse">
                        
