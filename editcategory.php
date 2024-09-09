@@ -1,7 +1,7 @@
 <?php
     require ('./constant/check.php');
 
-    if (!admin_has_permission('national') || !admin_has_permission('district')) {
+    if (!admin_has_permission('district')) {
         header('Location: dashboard.php');
     }
     include('./constant/layout/head.php');

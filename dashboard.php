@@ -104,7 +104,7 @@
                     </div>
                         <?php endif; ?>
 
-                    <?php if (admin_has_permission('storekeeper')):?>
+                    <?php if (admin_has_permission('storekeeper') || admin_has_permission('district')): ?>
                 <div class="col-md-6 dashboard">
                     <div class="card" style="background-color:#ffc107;">
                        <div class="media widget-ten">

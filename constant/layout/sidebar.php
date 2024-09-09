@@ -18,8 +18,8 @@
                     </li>
                 <?php }?>
          
-                                       <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
-                     <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">School</span></a>
+                <?php if (admin_has_permission('national') || admin_has_permission('district')) { ?>
+                    <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">School</span></a>
                     <ul aria-expanded="false" class="collapse">
                    
                         <li><a href="add_customer.php">Add School</a></li>
@@ -28,8 +28,6 @@
                     </ul>
                 </li>
                 
-            <?php }?>
-                <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
                 <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-list"></i><span class="hide-menu">Food Category </span></a>
                     <ul aria-expanded="false" class="collapse">
                    
@@ -38,8 +36,6 @@
                         <li><a href="categories.php">Manage Categories</a></li>
                     </ul>
                 </li>
-            <?php }?>
-            <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
                 <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-cutlery"></i><span class="hide-menu">Food</span></a>
                     <ul aria-expanded="false" class="collapse">
                    
@@ -48,7 +44,8 @@
                         <li><a href="food.php">Manage Food</a></li>
                     </ul>
                 </li>
-            <?php }?>
+                <?php }?>
+                <?php if (admin_has_permission('storekeeper')) { ?>
                 <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-files-o"></i><span class="hide-menu">Invoices</span></a>
                     <ul aria-expanded="false" class="collapse">
                    
@@ -58,7 +55,8 @@
                     </ul>
                 </li>
                  
-                <?php if(isset($_SESSION['userId']) && $_SESSION['userId']==1) { ?>
+                <?php }?>
+                <?php if (admin_has_permission('district')) { ?>
                  <li><a href="report.php" href="#" aria-expanded="false"><i class="fa fa-flag"></i><span class="hide-menu">Reports</span></a></li>
                 
     <?php }?>

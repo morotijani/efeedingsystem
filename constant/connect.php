@@ -33,6 +33,8 @@ if (isset($_SESSION['userId'])) {
             $title = 'Storekeeper';
         } else if ($admin_data['permission'] == 'headmaster,storekeeper') {
             $title = 'Head';
+        } else if ($admin_data['permission'] == 'district') {
+            $title = 'District';
         }
     }
 }

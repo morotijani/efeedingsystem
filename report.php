@@ -1,7 +1,9 @@
 <?php
     require ('./constant/check.php');
 
-    if (!admin_has_permission('national') || !admin_has_permission('storekeeper') || !admin_has_permission('district')) {
+    if ($admin_data['permission'] == 'storekeeper' || $admin_data['permission'] == 'district') {
+       // header('Location: dashboard.php');
+    } else {
         header('Location: dashboard.php');
     }
     include('./constant/layout/head.php');
@@ -24,12 +26,8 @@
             
             
             <div class="container-fluid">
-                
-                
-                
-                
                 <div class="row">
-                    <div class="col-lg-8" style="    margin-left: 10%;">
+                    <div class="col-lg-8" style="margin-left: 10%;">
                         <div class="card">
                             <div class="card-title">
                                
