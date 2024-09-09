@@ -1,4 +1,7 @@
 <?php
+    ini_set('display_errors', '1');
+    error_reporting(E_ALL);
+
     require ('./constant/check.php');
 
     if (!admin_has_permission('national')) {
@@ -13,19 +16,33 @@
     $adminQuery = "SELECT * FROM users WHERE permission = 'district'";
     $admin_result = $connect->query($adminQuery);
 
-    $admin_options = '';
-    foreach ($admin_result as $row) {
-        $admin_options .= '<option value='.$row["user_id"].'>'.ucwords($row['username']).'</option>';
-    }
-
     $sql = "SELECT * FROM districts INNER JOIN users ON users.user_id = districts.district_admin";
     $result = $connect->query($sql);
 
+    $d_name = ((isset($_POST['d_name']) && !empty($_POST['d_name'])) ? $_POST['d_name'] : '');
+    $d_admin = ((isset($_POST['d_admin']) && !empty($_POST['d_admin'])) ? $_POST['d_admin'] : '');
+
+    $d_id = '';
+    if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+        $edit_sql = "
+            SELECT * FROM districts 
+            INNER JOIN users 
+            ON users.user_id = districts.district_admin 
+            WHERE districts.district_id = '".$_GET['edit']."'
+        ";
+        $edit_result = $connect->query($edit_sql)->fetch_assoc();
+
+        $d_id = $edit_result['user_id'];
+        $d_name = ((isset($_POST['d_name']) && !empty($_POST['d_name'])) ? $_POST['d_name'] : $edit_result['district_name']);
+        $d_admin = ((isset($_POST['d_admin']) && !empty($_POST['d_admin'])) ? $_POST['d_admin'] : $edit_result['district_admin']);        
+    }
+
+    $admin_options = '';
+    foreach ($admin_result as $row) {
+        $admin_options .= '<option '.((isset($_GET['edit']) && $d_id == $row["user_id"])?' selected':'').' value="'.$row["user_id"].'">' . ucwords($row['username']) . '</option>';
+    }
 
     if ($_POST) {
-        // code...
-        $d_name = $_POST['d_name'];
-        $d_admin = $_POST['d_admin'];
 
         $sql = "
             INSERT INTO districts (district_name, district_admin) 
@@ -33,13 +50,14 @@
         ";
         if (isset($_GET['edit'])) {
             $sql = "
-                UPDATE districts (district_name, district_admin) 
-                VALUES ('$d_name', '$d_admin')
+                UPDATE districts 
+                SET district_name = '$d_name', district_admin = '$d_admin' 
+                WHERE district_id = '".$_GET['edit']."'
             ";
         }
 
         if ($connect->query($sql) === TRUE) {
-            echo "<script>alert('Successfully Added');</script>";
+            echo "<script>alert('Successfully Added District');</script>";
             header('location: district.php'); 
         } else {
             echo "<script>alert('Error while adding the district');</script>";
@@ -66,14 +84,14 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body">
-                            <?php if (isset($_GET['add']) && !empty($_GET['add'])): ?>
+                            <?php if ((isset($_GET['add']) && !empty($_GET['add'])) || isset($_GET['edit'])): ?>
                                 <div class="input-states">
                                     <form class="form-horizontal" method="POST"  id="submitBrandForm" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <div class="row">
                                                 <label class="col-sm-3 control-label">District Name</label>
                                                 <div class="col-sm-9">
-                                                  <input type="text" class="form-control" id="d_name" placeholder="District Name" name="d_name"  required="" pattern="^[a-zA-z ]+$" required />
+                                                  <input type="text" class="form-control" id="d_name" placeholder="District Name" name="d_name" value="<?= $d_name; ?>"  required="" pattern="^[a-zA-z ]+$" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -110,13 +128,13 @@
                                    <tbody>
                                         <?php foreach ($result as $row) {  ?>
                                         <tr>
-                                            <td><?php echo $row['district_id '] ?></td>
+                                            <td><?php echo $row['district_id'] ?></td>
                                             <td><?php echo ucwords($row['district_name']); ?></td>
-                                            <td><?php echo ucwords($row['district_admin']); ?></td>
+                                            <td><?php echo ucwords($row['username']); ?></td>
                                             <td><?php echo $row['createdAt'] ?></td>
                                             <td>
-                                                <a href="editcategory.php?id=<?php echo $row['district_id']?>"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-pencil"></i></button></a>
-                                                <a href="php_action/removeCategories.php?id=<?php echo $row['district_id']?>" ><button type="button" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash"></i></button></a>
+                                                <a href="?edit=<?php echo $row['district_id']; ?>&d=<?php echo $row['district_admin']; ?>"><button type="button" class="btn btn-xs btn-primary" ><i class="fa fa-pencil"></i></button></a>
+                                                <a href="?delete=<?php echo $row['district_id']; ?>" ><button type="button" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure to delete this district?')"><i class="fa fa-trash"></i></button></a>
                                             </td>
                                         </tr>
                                         <?php } ?>
