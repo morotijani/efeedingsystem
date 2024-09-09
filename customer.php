@@ -8,9 +8,28 @@
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
-    $sql = "SELECT * FROM tbl_client WHERE delete_status = 0";
+    $where = '';
+    $inner = '';
+
+    if (admin_has_permission('admin')) {
+        // code...
+    } else  if (admin_has_permission('district')) {
+        $inner .= " 
+            INNER JOIN users 
+            ON users.user_id = districts.district_admin 
+        ";
+        $where .= " AND districts.district_admin = '".$user_id."'";
+    }
+    $sql = "
+        SELECT * FROM tbl_client 
+        INNER JOIN districts 
+        ON districts.district_id = tbl_client.school_district
+        $inner 
+        WHERE delete_status = 0 
+        $where
+    ";
+    //var_dump($sql);die;
     $result = $connect->query($sql);
-    //echo $sql;exit;
 
 ?>
        <div class="page-wrapper">
@@ -28,11 +47,7 @@
             
             
             <div class="container-fluid">
-                
-                
-                
-                
-                 <div class="card">
+                <div class="card">
                             <div class="card-body">
                               
                             <a href="add_customer.php"><button class="btn btn-primary">Add School</button></a>
