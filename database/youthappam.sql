@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2022 at 09:28 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Sep 09, 2024 at 08:36 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,20 +32,39 @@ CREATE TABLE `categories` (
   `categories_name` varchar(255) NOT NULL,
   `categories_active` int(11) NOT NULL DEFAULT 0,
   `categories_status` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active`, `categories_status`) VALUES
-(1, 'Sweet', 1, 1),
-(2, 'Hot', 1, 1),
-(3, 'Vadiyalu', 1, 1),
-(4, 'Specials', 1, 1),
-(5, 'Podulu', 1, 1),
-(6, 'Pickles', 1, 1),
-(7, 'Nashta', 1, 1);
+(1, 'grains', 0, 1),
+(2, 'CEREALS', 0, 1),
+(3, 'oils', 0, 1),
+(4, 'Processed foods', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `districts`
+--
+
+CREATE TABLE `districts` (
+  `district_id` int(11) NOT NULL,
+  `district_name` varchar(100) DEFAULT NULL,
+  `district_admin` int(11) DEFAULT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `districts`
+--
+
+INSERT INTO `districts` (`district_id`, `district_name`, `district_admin`, `createdAt`) VALUES
+(2, 'Bantama', 10, '2024-09-09 01:15:33'),
+(3, 'navrongo', 6, '2024-09-09 01:27:00'),
+(8, 'Salaga', 11, '2024-09-09 06:03:22');
 
 -- --------------------------------------------------------
 
@@ -64,14 +83,14 @@ CREATE TABLE `manage_website` (
   `login_logo` text NOT NULL,
   `invoice_logo` text NOT NULL,
   `background_login_image` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `manage_website`
 --
 
 INSERT INTO `manage_website` (`id`, `title`, `short_title`, `logo`, `footer`, `currency_code`, `currency_symbol`, `login_logo`, `invoice_logo`, `background_login_image`) VALUES
-(1, 'Admin Panel by ', '9090908080', 'logo.jpg', 'Admin PanelÂ ', 'India', 'â‚¹', 'logo.png', 'logo.jpg', 'logo.jpg');
+(1, 'Admin Panel by ', '9090908080', 'CK-LOGO-symbol-300x297.png', 'Admin PanelÂ', 'India', 'â‚¹', 'logo.png', 'logo.jpg', 'logo.jpg');
 
 -- --------------------------------------------------------
 
@@ -84,30 +103,22 @@ CREATE TABLE `orders` (
   `order_date` date NOT NULL,
   `client_name` varchar(255) NOT NULL,
   `client_contact` varchar(255) NOT NULL,
-  `sub_total` varchar(255) NOT NULL,
-  `vat` varchar(255) NOT NULL,
-  `total_amount` varchar(255) NOT NULL,
-  `discount` varchar(255) NOT NULL,
-  `grand_total` varchar(255) NOT NULL,
-  `paid` varchar(255) NOT NULL,
-  `due` varchar(255) NOT NULL,
-  `payment_type` int(11) NOT NULL,
-  `payment_status` int(11) NOT NULL,
-  `payment_place` int(11) NOT NULL,
-  `gstn` varchar(255) NOT NULL,
   `order_status` int(11) NOT NULL DEFAULT 0,
   `user_id` int(11) NOT NULL,
   `file` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`, `sub_total`, `vat`, `total_amount`, `discount`, `grand_total`, `paid`, `due`, `payment_type`, `payment_status`, `payment_place`, `gstn`, `order_status`, `user_id`, `file`) VALUES
-(1, '2022-09-25', '1', '8090809080', '846.00', '152.28', '998.28', '5', '993.28', '993', '0.28', 2, 1, 1, '152.28', 1, 1, ''),
-(2, '2022-09-25', '1', '8090809080', '1050.00', '189.00', '1239.00', '', '1239.00', '1239', '0.00', 2, 1, 1, '189.00', 1, 1, ''),
-(3, '2022-09-25', '1', '8090809080', '430.00', '77.40', '507.40', '', '507.40', '507', '0.40', 4, 1, 1, '77.40', 1, 1, '');
+INSERT INTO `orders` (`order_id`, `order_date`, `client_name`, `client_contact`, `order_status`, `user_id`, `file`) VALUES
+(1, '2024-09-09', '1', '0222222', 1, 3, ''),
+(2, '2024-09-09', '1', '0222222', 1, 3, ''),
+(3, '2024-09-09', '1', '0222222', 1, 3, ''),
+(4, '2024-09-09', '1', '0222222', 1, 3, ''),
+(5, '2024-09-09', '2', '0333333333', 1, 1, ''),
+(6, '2024-09-09', '1', '0222222', 1, 5, '');
 
 -- --------------------------------------------------------
 
@@ -120,22 +131,19 @@ CREATE TABLE `order_item` (
   `order_id` int(11) NOT NULL DEFAULT 0,
   `product_id` int(11) NOT NULL DEFAULT 0,
   `quantity` varchar(255) NOT NULL,
-  `rate` varchar(255) NOT NULL,
-  `total` varchar(255) NOT NULL,
   `order_item_status` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `order_item`
 --
 
-INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`, `rate`, `total`, `order_item_status`) VALUES
-(1, 1, 7, '1', '180', '180.00', 1),
-(2, 1, 8, '3', '222', '666.00', 1),
-(3, 2, 1, '2', '175', '350.00', 1),
-(4, 2, 4, '5', '140', '700.00', 1),
-(5, 3, 9, '1', '70', '70.00', 1),
-(6, 3, 7, '2', '180', '360.00', 1);
+INSERT INTO `order_item` (`order_item_id`, `order_id`, `product_id`, `quantity`, `order_item_status`) VALUES
+(1, 4, 1, '5', 1),
+(2, 4, 2, '5', 1),
+(3, 5, 4, '500', 1),
+(4, 6, 1, '10', 1),
+(5, 6, 3, '50', 1);
 
 -- --------------------------------------------------------
 
@@ -153,22 +161,38 @@ CREATE TABLE `product` (
   `rate` varchar(255) NOT NULL,
   `active` int(11) NOT NULL DEFAULT 0,
   `status` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_image`, `brand_id`, `categories_id`, `quantity`, `rate`, `active`, `status`) VALUES
-(1, 'Tapeswaram Madatha Kaja', '', 0, 1, '558', '175', 1, 1),
-(2, 'Bellam Gavvalu', '', 0, 1, '125', '140', 2, 1),
-(3, 'Special Pappu Chegodi', '', 0, 2, '234', '140', 1, 1),
-(4, 'Karapu Boondi', '', 0, 2, '349', '140', 1, 1),
-(5, 'Gummadikaya Vadiyalu', '', 0, 3, '556', '180', 1, 1),
-(6, 'Biyyam Pindi Vadiyalu', '', 0, 3, '545', '170', 2, 1),
-(7, 'Masala dosa', '', 0, 2, '341', '180', 1, 1),
-(8, 'Chicken 65', '', 0, 2, '440', '222', 1, 1),
-(9, 'Idli Sambhar', '', 0, 4, '432', '70', 1, 1);
+(1, 'beans', '', 0, 2, '285', '', 0, 1),
+(2, 'frytol', '', 0, 3, '95', '', 0, 1),
+(3, 'rice', '', 0, 1, '450', '', 0, 1),
+(4, 'Sardine', '', 0, 4, '500', '', 0, 1),
+(5, 'palm oil', '', 0, 3, '200', '', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_remarks`
+--
+
+CREATE TABLE `student_remarks` (
+  `remark_id` int(11) NOT NULL,
+  `student_id` varchar(100) NOT NULL,
+  `remarks` text NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_remarks`
+--
+
+INSERT INTO `student_remarks` (`remark_id`, `student_id`, `remarks`, `createdAt`) VALUES
+(1, '20210404111', 'bla bla', '2024-09-09 04:44:19');
 
 -- --------------------------------------------------------
 
@@ -179,21 +203,29 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_image`, `brand_id`
 CREATE TABLE `tbl_client` (
   `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL,
-  `gender` varchar(150) NOT NULL,
   `mob_no` varchar(150) NOT NULL,
   `reffering` varchar(150) NOT NULL,
   `address` varchar(250) NOT NULL,
+  `school_bd` enum('day','boarding') DEFAULT NULL,
+  `school_gender` enum('mix','single') DEFAULT NULL,
+  `school_population` int(11) NOT NULL,
+  `school_district` int(11) DEFAULT NULL,
   `created_date_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `delete_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `delete_status` int(11) NOT NULL,
+  `headmaster` int(11) DEFAULT NULL,
+  `storekeeper` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_client`
 --
 
-INSERT INTO `tbl_client` (`id`, `name`, `gender`, `mob_no`, `reffering`, `address`, `created_date_time`, `delete_status`) VALUES
-(1, 'Rammolli Kallathil', 'Male', '8090809080', 'Subodh', 'Old Kanakapura Rd, Basavanagudi, Bengaluru, Karnataka 560004', '2022-09-25 05:32:57', 0),
-(2, 'Sachin Rajjan', 'Male', '8070809805', 'Akash', 'Plot No.8, Sahajan Colon, Kolkata', '2022-09-25 07:23:34', 0);
+INSERT INTO `tbl_client` (`id`, `name`, `mob_no`, `reffering`, `address`, `school_bd`, `school_gender`, `school_population`, `school_district`, `created_date_time`, `delete_status`, `headmaster`, `storekeeper`) VALUES
+(1, 'Navrongo SHS', '0222222', '', 'Af-111-11', 'boarding', 'mix', 1000, 3, '2024-09-09 03:10:10', 0, 5, 3),
+(2, 'Presbytarian  Girls High School', '0333333333', '', '12', 'day', 'single', 2500, 2, '2024-09-09 03:05:45', 0, 8, 9),
+(4, 'Salaga shs', '0202223333', '', '111 tamale', 'boarding', 'mix', 100, 7, '2024-09-09 05:57:06', 0, 8, 3),
+(5, 'Salaga shs', '020183844', '', '1234 salaga', 'boarding', 'mix', 550, 8, '2024-09-09 06:07:37', 0, 5, 9),
+(6, 'Salaga SHTS', '0234576', '', '215', 'boarding', 'single', 555, 8, '2024-09-09 06:34:18', 0, 5, 9);
 
 -- --------------------------------------------------------
 
@@ -209,7 +241,7 @@ CREATE TABLE `tbl_email_config` (
   `mail_username` varchar(50) NOT NULL,
   `mail_password` varchar(30) NOT NULL,
   `mail_encrypt` varchar(300) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -221,15 +253,24 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `email` varchar(255) NOT NULL,
+  `permission` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `email`) VALUES
-(1, 'mayuri.infospace@gmail.com', 'cd92a26534dba48cd785cdcc0b3e6bd1', 'mayuri.infospace@gmail.com');
+INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `permission`) VALUES
+(1, 'Admin Abi', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin@admin.com', 'admin,district,storekeeper,headmaster,national'),
+(3, 'calipo', '5f4dcc3b5aa765d61d8327deb882cf99', 'calscreations9@gmail.com', 'storekeeper'),
+(5, 'Nana Asamoah', '5f4dcc3b5aa765d61d8327deb882cf99', 'asamoah.headmaster@efeeding.com', 'headmaster,storekeeper'),
+(6, 'Baba Seidu', '5f4dcc3b5aa765d61d8327deb882cf99', 'baba.district@efeeding.com', 'district'),
+(7, 'Mr Aka', '5f4dcc3b5aa765d61d8327deb882cf99', 'aka.national@efeeding.com', 'national,district'),
+(8, 'raymond owusu', '5f4dcc3b5aa765d61d8327deb882cf99', 'raymond.headmaster@efeeding.com', 'headmaster,storekeeper'),
+(9, 'abigirl asare', '5f4dcc3b5aa765d61d8327deb882cf99', 'abigirl.storekeeper@efeeding.com', 'storekeeper'),
+(10, 'edward adjei', '5f4dcc3b5aa765d61d8327deb882cf99', 'edward.district@efeeding.com', 'district'),
+(11, 'Abudu Andani', '5f4dcc3b5aa765d61d8327deb882cf99', 'abudu.district@email.com', 'district');
 
 --
 -- Indexes for dumped tables
@@ -240,6 +281,12 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `email`) VALUES
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categories_id`);
+
+--
+-- Indexes for table `districts`
+--
+ALTER TABLE `districts`
+  ADD PRIMARY KEY (`district_id`);
 
 --
 -- Indexes for table `manage_website`
@@ -264,6 +311,12 @@ ALTER TABLE `order_item`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indexes for table `student_remarks`
+--
+ALTER TABLE `student_remarks`
+  ADD PRIMARY KEY (`remark_id`);
 
 --
 -- Indexes for table `tbl_client`
@@ -291,7 +344,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `districts`
+--
+ALTER TABLE `districts`
+  MODIFY `district_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `manage_website`
@@ -303,25 +362,31 @@ ALTER TABLE `manage_website`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `student_remarks`
+--
+ALTER TABLE `student_remarks`
+  MODIFY `remark_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_client`
 --
 ALTER TABLE `tbl_client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_email_config`
@@ -333,7 +398,7 @@ ALTER TABLE `tbl_email_config`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -11,22 +11,29 @@
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
-    $getD = "SELECT * FROM districts";
+    $where = '';
+    if (!admin_has_permission('national')) {
+        $where .= 'WHERE district_admin = "'.$user_id.'"';
+    }
+    $getD = "SELECT * FROM districts $where";
     $d_result = $connect->query($getD);
     $d_output = '';
     foreach ($d_result as $d_row) {
         $d_output .= '<option value="'.$d_row["district_id"].'">'.strtoupper($d_row["district_name"]).'</option>';
     }
 
-    $getH = "SELECT * FROM users INNER JOIN tbl_client ON tbl_client.headmaster != users.user_id WHERE permission = 'headmaster,storekeeper'";
+    $a = "SELECT headmaster, storekeeper FROM tbl_client";
+    $a_result = $connect->query($a);
+
+
+    $getH = "SELECT * FROM users INNER JOIN tbl_client WHERE tbl_client.headmaster != users.user_id AND permission = 'headmaster,storekeeper' GROUP BY users.user_id";
     $h_result = $connect->query($getH);
     $h_output = '';
     foreach ($h_result as $h_row) {
         $h_output .= '<option value="'.$h_row["user_id"].'">'.strtoupper($h_row["username"]).'</option>';
     }
 
-
-    $getS = "SELECT * FROM users INNER JOIN tbl_client ON tbl_client.storekeeper != users.user_id WHERE permission = 'storekeeper'";
+    $getS = "SELECT * FROM users INNER JOIN tbl_client WHERE tbl_client.storekeeper != users.user_id AND permission = 'storekeeper' GROUP BY users.user_id";
     $s_result = $connect->query($getS);
     $s_output = '';
     foreach ($s_result as $s_row) {
