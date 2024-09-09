@@ -87,7 +87,7 @@
                                                   <select type="text" class="form-control" id="categoryName" placeholder="Test Name" name="categoryName" >
                         <option value="">~~SELECT~~</option>
                         <?php 
-                        $sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1 AND categories_active = 1";
+                        $sql = "SELECT categories_id, categories_name, categories_active, categories_status FROM categories WHERE categories_status = 1";
                                 $result = $connect->query($sql);
 
                                 while($row = $result->fetch_array()) {

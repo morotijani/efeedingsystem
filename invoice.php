@@ -17,7 +17,7 @@
         $inner = '';
         $where = '';
     } else if (admin_has_permission('storekeeper')) {
-        $inner .= " ON (users.permission = 'headmaster' OR users.permission = 'storekeeper') ";
+        $inner .= " ON (users.permission = 'headmaster,storekeeper' OR users.permission = 'storekeeper') ";
         $where .= " AND (tbl_client.storekeeper = '" . $user_id ."' OR tbl_client.headmaster = '" . $user_id ."')";
     }
 
@@ -29,6 +29,7 @@
         $inner 
         WHERE order_status = 1
         $where 
+        GROUP BY orders.order_id
     ";
 
     //var_dump($sql);die;

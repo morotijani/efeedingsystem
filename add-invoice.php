@@ -103,6 +103,7 @@
                                                 <label class="col-sm-2 control-label">School</label>
                                                 <div class="col-sm-4">
                                                    <select class="form-control select2" id="clientName" name="clientName">
+                                                    <option>~ SELECT ~</option>
                                                         <?php 
                                                             $where = '';
                                                             $inner = 'INNER JOIN users ';

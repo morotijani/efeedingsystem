@@ -1,4 +1,8 @@
 <?php 	
+
+ini_set('display_errors', '1');
+    error_reporting(E_ALL);
+
 //ALTER TABLE `orders` ADD `payment_place` INT NOT NULL AFTER `payment_status`;
 //TER TABLE `orders` ADD `gstn` VARCHAR(255) NOT NULL AFTER `payment_place`;
 require_once 'core.php';

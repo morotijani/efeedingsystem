@@ -23,6 +23,17 @@ if (isset($_SESSION['userId'])) {
     if ($mainResult->num_rows == 1) {
         $admin_data = $mainResult->fetch_assoc();
         $user_id = $admin_data['user_id'];
+
+        // find position or title
+        $title = '';
+        if ($admin_data['permission'] == 'admin,district,storekeeper,headmaster,national') {
+            // code...
+            $title = 'Admin';
+        } else if ($admin_data['permission'] == 'storekeeper') {
+            $title = 'Storekeeper';
+        } else if ($admin_data['permission'] == 'headmaster,storekeeper') {
+            $title = 'Head';
+        }
     }
 }
 

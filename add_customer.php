@@ -10,14 +10,14 @@
     include('./constant/layout/header.php');
     include('./constant/layout/sidebar.php');
 
-    $getH = "SELECT * FROM users WHERE permission = 'headmaster'";
+    $getH = "SELECT * FROM users INNER JOIN tbl_client ON tbl_client.headmaster != users.user_id WHERE permission = 'headmaster,storekeeper'";
     $h_result = $connect->query($getH);
     $h_output = '';
     foreach ($h_result as $h_row) {
         $h_output .= '<option value="'.$h_row["user_id"].'">'.strtoupper($h_row["username"]).'</option>';
     }
 
-    $getS = "SELECT * FROM users WHERE permission = 'storekeeper'";
+    $getS = "SELECT * FROM users INNER JOIN tbl_client ON tbl_client.storekeeper != users.user_id WHERE permission = 'storekeeper'";
     $s_result = $connect->query($getS);
     $s_output = '';
     foreach ($s_result as $s_row) {

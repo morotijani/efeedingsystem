@@ -18,8 +18,12 @@
         // code...
         $inner = '';
     } else if (admin_has_permission('storekeeper')) {
-        $inner .= " ON (users.permission = 'storekeeper' OR users.permission = 'headmaster,storekeeper') ";
-        $where .= " AND orders.user_id = '".$user_id."'";
+        $inner .= " ON (users.permission = 'storekeeper' OR users.permission = 'headmaster,storekeeper') INNER JOIN tbl_client ON tbl_client.id = orders.client_name ";
+        $where .= " AND (tbl_client.headmaster = '".$user_id."' OR tbl_client.storekeeper = '".$user_id."')";
+
+        $QUERY = "SELECT * FROM tbl_client WHERE (headmaster = '$user_id' OR storekeeper = '$user_id')";
+        $q_result = $connect->query($QUERY)->fetch_assoc();
+
     }
 
     $Customersql = "SELECT * FROM tbl_client WHERE delete_status = 0";
@@ -30,7 +34,7 @@
     $query = $connect->query($sql);
     $countProduct = $query->num_rows;
 
-    $orderSql = "SELECT * FROM orders $inner WHERE order_status = 1 $where";
+    $orderSql = "SELECT * FROM orders $inner WHERE order_status = 1 $where GROUP BY orders.order_id";
     //var_dump($orderSql);die;
     $orderQuery = $connect->query($orderSql);
     $countOrder = $orderQuery->num_rows;
@@ -92,15 +96,17 @@
                         </div>
                     </div>
                         <?php endif; ?>
+
+                    <?php if (admin_has_permission('storekeeper')):?>
                 <div class="col-md-6 dashboard">
                     <div class="card" style="background-color:#ffc107;">
                        <div class="media widget-ten">
                                             <div class="media-left meida media-middle">
-                                                <span><i class="ti-calendar  f-s-40"></i></span>
+                                                <span><i class="ti-home f-s-40"></i></span>
                                             </div>
                                             <div class="media-body media-text-right">
 
-                        <h1 style="color:white;"><?php echo date('d'); ?></h1>
+                        <h1 style="color:white;"><?php echo $q_result['name'] . ' - ' . $title; ?></h1>
                       
 
                      
@@ -109,6 +115,7 @@
                     </div> 
                </div>
             </div>
+            <?php endif; ?>
             <div class="col-md-6 dashboard">
                 <div class="card" style="background-color:#009688;">
                    <div class="media widget-ten">

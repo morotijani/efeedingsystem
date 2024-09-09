@@ -70,7 +70,7 @@
                                                     <select class="form-control" name="permission" id="permission">
                                                         <option value=""></option>
                                                         <option <?= (($result['permission'] == 'admin,headmaster,district,national,storekeeper') ? 'selected' : ''); ?> value="admin,headmaster,district,national,storekeeper">Main Admin</option>
-                                                        <option <?= (($result['permission'] == 'headmaster') ? 'selected' : ''); ?> value="headmaster">Head Master</option>
+                                                        <option <?= (($result['permission'] == 'headmaster') ? 'selected' : ''); ?> value="headmaster,storekeeper">Head Master</option>
                                                         <option <?= (($result['permission'] == 'district') ? 'selected' : ''); ?> value="district">District</option>
                                                         <option <?= (($result['permission'] == 'national') ? 'selected' : ''); ?> value="national">National</option>
                                                         <option <?= (($result['permission'] == 'storekeeper') ? 'selected' : ''); ?> value="storekeeper">Storekeeper</option>
