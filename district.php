@@ -42,6 +42,8 @@
         $admin_options .= '<option '.((isset($_GET['edit']) && $d_id == $row["user_id"])?' selected':'').' value="'.$row["user_id"].'">' . ucwords($row['username']) . '</option>';
     }
 
+    // add or edit
+
     if ($_POST) {
 
         $sql = "
@@ -57,14 +59,23 @@
         }
 
         if ($connect->query($sql) === TRUE) {
-            echo "<script>alert('Successfully Added District');</script>";
-            header('location: district.php'); 
+            echo "<script>alert('Successfully Added District');window.location.href = 'district.php';</script>"; 
         } else {
-            echo "<script>alert('Error while adding the district');</script>";
+            echo "<script>alert('Error while adding the district');window.location.href = 'district.php';</script>";
+        }
+    }
+
+    if (isset($_GET['delete'])) {
+        // code...
+        $sql = "
+            DELETE FROM districts WHERE district_id = '".$_GET['delete']."' 
+        ";
+        if ($connect->query($sql) === TRUE) {
+            echo "<script>alert('Successfully deleted District');window.location.href = 'district.php';</script>";
+        } else {
+            echo "<script>alert('Error while deleting the district');window.location.href = 'district.php';</script>";
         }
 
-
-    
     }
 
 ?>
