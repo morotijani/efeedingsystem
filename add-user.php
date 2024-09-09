@@ -1,7 +1,13 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+ <?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?>   
+    if (!admin_has_permission('admin')) {
+        header('Location: dashboard.php');
+    }
+
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');?>   
  
         <div class="page-wrapper">
             
@@ -66,9 +72,9 @@
                                                     <select class="form-control" name="permission" id="permission">
                                                         <option value=""></option>
                                                         <option value="admin,headmaster,district,national,storekeeper">Main Admin</option>
-                                                        <option value="headmaster,storekeeper">Head Master</option>
-                                                        <option value="district,national">District</option>
                                                         <option value="national,district">National</option>
+                                                        <option value="district">District</option>
+                                                        <option value="headmaster,storekeeper">Head Master</option>
                                                         <option value="storekeeper">Storekeeper</option>
                                                     </select>
                                                 </div>

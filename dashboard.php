@@ -14,6 +14,7 @@
 
     $inner = 'INNER JOIN users ';
     $where = '';
+    $school_name = '';
     if (admin_has_permission('admin')) {
         // code...
         $inner = '';
@@ -21,10 +22,16 @@
         $inner .= " ON (users.permission = 'storekeeper' OR users.permission = 'headmaster,storekeeper') INNER JOIN tbl_client ON tbl_client.id = orders.client_name ";
         $where .= " AND (tbl_client.headmaster = '".$user_id."' OR tbl_client.storekeeper = '".$user_id."')";
 
-        $QUERY = "SELECT * FROM tbl_client WHERE (headmaster = '$user_id' OR storekeeper = '$user_id')";
-        $q_result = $connect->query($QUERY)->fetch_assoc();
 
+       if ($admin_data['permission'] == 'storekeeper' || $admin_data['permission'] == 'headmaster,storekeeper') {
+            $QUERY = "SELECT * FROM tbl_client WHERE (headmaster = '$user_id' OR storekeeper = '$user_id')";
+            $q_result = $connect->query($QUERY)->fetch_assoc();
+
+            $school_name = $q_result['name'];
+        }
     }
+
+
 
     $Customersql = "SELECT * FROM tbl_client WHERE delete_status = 0";
     $query = $connect->query($Customersql);
@@ -106,7 +113,7 @@
                                             </div>
                                             <div class="media-body media-text-right">
 
-                        <h1 style="color:white;"><?php echo $q_result['name'] . ' - ' . $title; ?></h1>
+                        <h1 style="color:white;"><?php echo $school_name . ' - ' . $title; ?></h1>
                       
 
                      

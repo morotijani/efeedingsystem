@@ -32,7 +32,6 @@
         GROUP BY orders.order_id
     ";
 
-    //var_dump($sql);die;
 
     // $sql = "SELECT order_id, order_date, client_name, client_contact, tbl_client.name FROM orders INNER JOIN tbl_client 
     // ON orders.client_name = tbl_client.id WHERE order_status = 1 AND user_id = '$user'";

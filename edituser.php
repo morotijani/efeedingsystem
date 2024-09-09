@@ -1,9 +1,13 @@
-<?php include('./constant/layout/head.php');?>
-<?php include('./constant/layout/header.php');?>
+ <?php
+    require ('./constant/check.php');
 
-<?php include('./constant/layout/sidebar.php');?> 
+    if (!admin_has_permission('admin')) {
+        header('Location: dashboard.php');
+    }
 
-<?php include('./constant/connect.php');
+    include('./constant/layout/head.php');
+    include('./constant/layout/header.php');
+    include('./constant/layout/sidebar.php');
 
 
 
@@ -70,9 +74,9 @@
                                                     <select class="form-control" name="permission" id="permission">
                                                         <option value=""></option>
                                                         <option <?= (($result['permission'] == 'admin,headmaster,district,national,storekeeper') ? 'selected' : ''); ?> value="admin,headmaster,district,national,storekeeper">Main Admin</option>
-                                                        <option <?= (($result['permission'] == 'headmaster') ? 'selected' : ''); ?> value="headmaster,storekeeper">Head Master</option>
+                                                        <option <?= (($result['permission'] == 'national') ? 'selected' : ''); ?> value="national,district">National</option>
                                                         <option <?= (($result['permission'] == 'district') ? 'selected' : ''); ?> value="district">District</option>
-                                                        <option <?= (($result['permission'] == 'national') ? 'selected' : ''); ?> value="national">National</option>
+                                                        <option <?= (($result['permission'] == 'headmaster') ? 'selected' : ''); ?> value="headmaster,storekeeper">Head Master</option>
                                                         <option <?= (($result['permission'] == 'storekeeper') ? 'selected' : ''); ?> value="storekeeper">Storekeeper</option>
                                                     </select>
                                                 </div>
